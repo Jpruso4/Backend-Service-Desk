@@ -11,5 +11,5 @@ public class MapperTipoIncidente implements IMapperTipoIncidente{
 		
 		return null;
 	}
-
+	
 }

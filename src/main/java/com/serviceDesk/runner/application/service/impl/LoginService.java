@@ -2,7 +2,7 @@ package com.serviceDesk.runner.application.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.serviceDesk.runner.application.util.Validaciones;
+import com.serviceDesk.runner.application.repository.ILoginRepository;
 import com.serviceDesk.runner.application.dao.ITecnicoDao;
 import com.serviceDesk.runner.application.models.BodyModel;
 import com.serviceDesk.runner.application.models.LoginModel;
@@ -14,12 +14,12 @@ import com.serviceDesk.runner.application.util.MensajesErrorLogin;
 public class LoginService implements ILoginService {
 
 	private final ITecnicoDao iTecnicoDao;
-	private final Validaciones validaciones;
+	private final ILoginRepository iLoginRepository;
 
 	@Autowired
-	public LoginService(ITecnicoDao iTecnicoDao, Validaciones validaciones) {
+	public LoginService(ITecnicoDao iTecnicoDao, ILoginRepository iLoginRepository) {
 		this.iTecnicoDao = iTecnicoDao;
-		this.validaciones = validaciones;
+		this.iLoginRepository = iLoginRepository;
 	}
 
 	@Override
@@ -28,8 +28,8 @@ public class LoginService implements ILoginService {
 		boolean flagPassword = false;
 		ResponseMensajeDto responseMessage = new ResponseMensajeDto();
 
-		flagUser = validaciones.validarEmailTecnico(loginModel.getEmail(), iTecnicoDao);
-		flagPassword = validaciones.validarUsuarioYContraseñaTecnico(loginModel.getEmail(), loginModel.getPassword(),iTecnicoDao);
+		flagUser = iLoginRepository.validarEmailTecnico(loginModel.getEmail(), iTecnicoDao);
+		flagPassword = iLoginRepository.validarUsuarioYContraseñaTecnico(loginModel.getEmail(), loginModel.getPassword(),iTecnicoDao);
 
 		if (flagUser && flagPassword) {
 			responseMessage.setBody(new BodyModel(true));
