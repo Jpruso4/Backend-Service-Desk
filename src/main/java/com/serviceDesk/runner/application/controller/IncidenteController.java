@@ -1,4 +1,4 @@
- 	package com.serviceDesk.runner.application.controller;
+package com.serviceDesk.runner.application.controller;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ import com.serviceDesk.runner.application.models.MaquinaModel;
 import com.serviceDesk.runner.application.models.ResponseMensajeDto;
 import com.serviceDesk.runner.application.models.UsuarioModel;
 import com.serviceDesk.runner.application.service.impl.IncidenteService;
-import com.serviceDesk.runner.application.util.Constantes;
+import com.serviceDesk.runner.application.util.UrlsControladores;
 
 @RestController
-@RequestMapping(Constantes.INCIDENTE_CONTROLLER)
+@RequestMapping(UrlsControladores.INCIDENTE_CONTROLLER)
 public class IncidenteController {
 
-	private final IncidenteService incidenteService;
+	private final IncidenteService incidenteService; 
 
 	@Autowired
 	public IncidenteController(IncidenteService incidenteService) {
@@ -56,5 +56,7 @@ public class IncidenteController {
 	public UsuarioModel validarUsuario(@RequestBody IncidenteModel datosIncidenteNuevo) {
 		return incidenteService.validarUsuario(datosIncidenteNuevo);
 	}
+	
+	
 	
 }

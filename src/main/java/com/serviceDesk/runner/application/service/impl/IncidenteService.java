@@ -1,4 +1,4 @@
-package com.serviceDesk.runner.application.service.impl;
+ package com.serviceDesk.runner.application.service.impl;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,12 +21,13 @@ import com.serviceDesk.runner.application.entities.Usuario;
 import com.serviceDesk.runner.application.mapper.impl.MapperIncidente;
 import com.serviceDesk.runner.application.mapper.impl.MapperMaquina;
 import com.serviceDesk.runner.application.mapper.impl.MapperUsuario;
+import com.serviceDesk.runner.application.models.BodyModel;
 import com.serviceDesk.runner.application.models.IncidenteModel;
 import com.serviceDesk.runner.application.models.MaquinaModel;
 import com.serviceDesk.runner.application.models.ResponseMensajeDto;
 import com.serviceDesk.runner.application.models.UsuarioModel;
 import com.serviceDesk.runner.application.service.IIncidenteService;
-import com.serviceDesk.runner.application.util.Constantes;
+import com.serviceDesk.runner.application.util.MensajesError;
 
 @Service
 public class IncidenteService  implements IIncidenteService{
@@ -88,13 +89,13 @@ public class IncidenteService  implements IIncidenteService{
 		
 		Optional<Usuario> usuarioEntity = usuarioDao.obtenerUsuarioDocumento(datosIncidenteNuevo.getUsuario().getNumeroDocumento());
 		if (!usuarioEntity.isPresent()) {
-			throw new NoSuchElementException(Constantes.USUARIO_INEXISTENTE);
+			throw new NoSuchElementException(MensajesError.USUARIO_INEXISTENTE);
 		}
 		registroIncidente.setUsuario(usuarioEntity.get());
 		
 		Optional<Maquina> maquinaEntity = maquinaDao.obtenerMaquinaPorSalon(datosIncidenteNuevo.getMaquina().getNumeroComputador(), datosIncidenteNuevo.getMaquina().getNumeroDependencia(), datosIncidenteNuevo.getMaquina().getBloqueDependencia());
 		if(!maquinaEntity.isPresent()) {
-			throw new NoSuchElementException(Constantes.MAQUINA_INEXISTENTE);
+			throw new NoSuchElementException(MensajesError.MAQUINA_INEXISTENTE);
 		}
 		registroIncidente.setMaquina(maquinaEntity.get());
 		
@@ -106,13 +107,13 @@ public class IncidenteService  implements IIncidenteService{
 			registroIncidente.setEstado(1);
 		}
 		if(!tecnicoEntity.isPresent()) {
-			throw new NoSuchElementException(Constantes.TECNICO_INEXISTENTE);
+			throw new NoSuchElementException(MensajesError.TECHNICIAN_NON_EXISTENT);
 		}
 		registroIncidente.setTecnico(tecnicoEntity.get());
 		
 		Optional<TipoIncidente> tipoIncidenteEntity = tipoIncidenteDao.obtenerTipoIncidente(datosIncidenteNuevo.getTipoIncidente().getNombreTipoIncidente());
 		if(!tipoIncidenteEntity.isPresent()) {
-			throw new NoSuchElementException(Constantes.TIPO_DE_INCIDENTE_INEXISTENTE);
+			throw new NoSuchElementException(MensajesError.TIPO_DE_INCIDENTE_INEXISTENTE);
 		}
 		registroIncidente.setTipoIncidente(tipoIncidenteEntity.get());
 		registroIncidente.setProblemaUsuario(datosIncidenteNuevo.getProblemaUsuario());
@@ -120,8 +121,7 @@ public class IncidenteService  implements IIncidenteService{
 		
 		incidenteDao.save(registroIncidente);
 		
-		respuestaMensaje.setCodigoRespuesta(Constantes.COD_RESPUESTA_REGISTRO);
-		respuestaMensaje.setMensajeRespuesta(Constantes.MENSAJE_REGISTRAR);
+		respuestaMensaje.setBody(new BodyModel(true));
 		return respuestaMensaje;
 	}
 	
