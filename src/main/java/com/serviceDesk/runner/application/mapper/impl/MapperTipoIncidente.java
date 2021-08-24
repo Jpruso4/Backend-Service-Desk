@@ -8,8 +8,10 @@ public class MapperTipoIncidente implements IMapperTipoIncidente{
 
 	@Override
 	public TipoIncidenteModel mostrarTipoIncidente(TipoIncidente listaTipoIncidente) {
-		
-		return null;
+		TipoIncidenteModel listTipoIncidenteModel = new TipoIncidenteModel();
+		listTipoIncidenteModel.setIdTipoIncidente(listaTipoIncidente.getIdTipoIncidente());
+		listTipoIncidenteModel.setNombreTipoIncidente(listaTipoIncidente.getNombreTipoIncidente());
+		return listTipoIncidenteModel;
 	}
 	
 }

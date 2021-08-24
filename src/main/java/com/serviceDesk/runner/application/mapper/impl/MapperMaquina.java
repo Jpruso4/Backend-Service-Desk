@@ -4,11 +4,14 @@ import org.springframework.stereotype.Service;
 
 import com.serviceDesk.runner.application.entities.Maquina;
 import com.serviceDesk.runner.application.entities.TipoDependencia;
+import com.serviceDesk.runner.application.mapper.IMapperMaquina;
 import com.serviceDesk.runner.application.models.MaquinaModel;
 import com.serviceDesk.runner.application.models.TipoDependenciaModel;
 
 @Service
-public class MapperMaquina {
+public class MapperMaquina implements IMapperMaquina{
+	
+	@Override
 	public MaquinaModel mostrarMaquina(Maquina maquinaEntity){
 		MaquinaModel mostrarMaquina = new MaquinaModel();
 		mostrarMaquina.setIdMaquina(maquinaEntity.getIdMaquina());
