@@ -1,12 +1,13 @@
 package com.serviceDesk.runner.application.mapper.impl;
 
 import org.springframework.stereotype.Service;
+
 import com.serviceDesk.runner.application.entities.TipoDocumento;
 import com.serviceDesk.runner.application.entities.TipoUsuario;
 import com.serviceDesk.runner.application.entities.Usuario;
-import com.serviceDesk.runner.application.models.TipoDocumentoModel;
-import com.serviceDesk.runner.application.models.TipoUsuarioModel;
-import com.serviceDesk.runner.application.models.UsuarioModel;
+import com.serviceDesk.runner.application.model.TipoDocumentoModel;
+import com.serviceDesk.runner.application.model.TipoUsuarioModel;
+import com.serviceDesk.runner.application.model.UsuarioModel;
 
 @Service
 public class MapperUsuario {

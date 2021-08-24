@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import com.serviceDesk.runner.application.entities.Maquina;
 import com.serviceDesk.runner.application.entities.TipoDependencia;
 import com.serviceDesk.runner.application.mapper.IMapperMaquina;
-import com.serviceDesk.runner.application.models.MaquinaModel;
-import com.serviceDesk.runner.application.models.TipoDependenciaModel;
+import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.TipoDependenciaModel;
 
 @Service
 public class MapperMaquina implements IMapperMaquina{

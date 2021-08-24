@@ -2,7 +2,7 @@ package com.serviceDesk.runner.application.service;
 
 import java.util.List;
 
-import com.serviceDesk.runner.application.models.TipoIncidenteModel;
+import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 
 public interface ITipoIncidenteService {
 

@@ -5,19 +5,19 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.serviceDesk.runner.application.models.MaquinaModel;
-import com.serviceDesk.runner.application.models.ResponseMensajeDto;
+import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.Response;
 
 public interface IMaquinaService {
 	
-	MaquinaModel mostrarMaquina(@Valid @NotNull(message = "The value is required") Integer idMaquina);
+	Response<MaquinaModel> mostrarMaquina(@Valid @NotNull(message = "The value is required") Integer idMaquina);
 
-	List<MaquinaModel> mostrarListaMaquinas();
+	Response<List<MaquinaModel>>mostrarListaMaquinas();
 
-	ResponseMensajeDto registrarMaquina(MaquinaModel datosMaquinaNueva);
+	Response<MaquinaModel> registrarMaquina(MaquinaModel datosMaquinaNueva);
 
-	ResponseMensajeDto actualizarMaquina(MaquinaModel datosMaquinaModificar);
+	Response<MaquinaModel> actualizarMaquina(MaquinaModel datosMaquinaModificar);
 	
-	ResponseMensajeDto eliminarMovimiento(Integer idMaquina);
+	Response<MaquinaModel> eliminarMovimiento(Integer idMaquina);
 
 }

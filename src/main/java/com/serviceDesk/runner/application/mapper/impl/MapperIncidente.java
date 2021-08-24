@@ -8,11 +8,11 @@ import com.serviceDesk.runner.application.entities.Tecnico;
 import com.serviceDesk.runner.application.entities.TipoIncidente;
 import com.serviceDesk.runner.application.entities.Usuario;
 import com.serviceDesk.runner.application.mapper.IMapperIncidente;
-import com.serviceDesk.runner.application.models.IncidenteModel;
-import com.serviceDesk.runner.application.models.MaquinaModel;
-import com.serviceDesk.runner.application.models.TecnicoModel;
-import com.serviceDesk.runner.application.models.TipoIncidenteModel;
-import com.serviceDesk.runner.application.models.UsuarioModel;
+import com.serviceDesk.runner.application.model.IncidenteModel;
+import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.TecnicoModel;
+import com.serviceDesk.runner.application.model.TipoIncidenteModel;
+import com.serviceDesk.runner.application.model.UsuarioModel;
 
 @Service
 public class MapperIncidente implements IMapperIncidente{

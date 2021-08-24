@@ -1,7 +1,6 @@
-package com.serviceDesk.runner.application.models;
+package com.serviceDesk.runner.application.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TipoDependenciaModel {
-	private int idTipoDependencia;
-	private String nombreDependencia;
+public class TipoIncidenteModel {
+	private int idTipoIncidente;
+	private String nombreTipoIncidente;
 }

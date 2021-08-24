@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.serviceDesk.runner.application.repository.ILoginRepository;
 import com.serviceDesk.runner.application.dao.ITecnicoDao;
-import com.serviceDesk.runner.application.models.BodyModel;
-import com.serviceDesk.runner.application.models.LoginModel;
-import com.serviceDesk.runner.application.models.ResponseMensajeDto;
+import com.serviceDesk.runner.application.model.LoginModel;
+import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.service.ILoginService;
 import com.serviceDesk.runner.application.util.MensajesErrorLogin;
 
@@ -23,28 +22,23 @@ public class LoginService implements ILoginService {
 	}
 
 	@Override
-	public ResponseMensajeDto login(LoginModel loginModel) {
+	public Response<LoginModel>login(LoginModel loginModel) {
 		boolean flagUser = false;
 		boolean flagPassword = false;
-		ResponseMensajeDto responseMessage = new ResponseMensajeDto();
-
+		//Response<LoginModel> responseMessage = new Response<LoginModel>();
+		
 		flagUser = iLoginRepository.validarEmailTecnico(loginModel.getEmail(), iTecnicoDao);
 		flagPassword = iLoginRepository.validarUsuarioYContraseñaTecnico(loginModel.getEmail(), loginModel.getPassword(),iTecnicoDao);
 
 		if (flagUser && flagPassword) {
-			responseMessage.setBody(new BodyModel(true));
+			return new Response<LoginModel>(null,null,loginModel);
 		} else {
 			if (flagUser) {
-				responseMessage.setErrorCode(MensajesErrorLogin.COD_INCORRECT_PASSWORD);
-				responseMessage.setErrorMessage(MensajesErrorLogin.MESSAGE_INCORRECT_PASSWORD);
-				responseMessage.setBody(new BodyModel(false));
+				return new Response<LoginModel>(MensajesErrorLogin.COD_INCORRECT_PASSWORD, MensajesErrorLogin.MESSAGE_INCORRECT_PASSWORD, null);
 			} else {
-				responseMessage.setErrorCode(MensajesErrorLogin.COD_INCORRECT_USER);
-				responseMessage.setErrorMessage(MensajesErrorLogin.MESSAGE_INCORRECT_USER);
-				responseMessage.setBody(new BodyModel(false));
+				return new Response<LoginModel>(MensajesErrorLogin.COD_INCORRECT_USER, MensajesErrorLogin.MESSAGE_INCORRECT_USER, null);
 			}
 		}
 
-		return responseMessage;
 	}
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.serviceDesk.runner.application.models.TipoIncidenteModel;
+import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 import com.serviceDesk.runner.application.service.ITipoIncidenteService;
 
 public class TipoIncidenteController {

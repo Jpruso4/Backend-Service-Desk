@@ -1,4 +1,4 @@
-package com.serviceDesk.runner.application.models;
+package com.serviceDesk.runner.application.model;
 
 import javax.validation.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonInclude;

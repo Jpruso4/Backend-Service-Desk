@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.serviceDesk.runner.application.models.IncidenteModel;
-import com.serviceDesk.runner.application.models.MaquinaModel;
-import com.serviceDesk.runner.application.models.ResponseMensajeDto;
-import com.serviceDesk.runner.application.models.UsuarioModel;
+
+import com.serviceDesk.runner.application.model.IncidenteModel;
+import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.Response;
+import com.serviceDesk.runner.application.model.UsuarioModel;
 import com.serviceDesk.runner.application.service.impl.IncidenteService;
 import com.serviceDesk.runner.application.util.UrlsControladores;
 
@@ -56,24 +57,22 @@ public class IncidenteController {
 	@PostMapping(value = "", produces = "application/json", consumes = "application/json")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseMensajeDto registrarIncidente(@RequestBody IncidenteModel datosIncidenteNuevo) {
+	public Response<IncidenteModel> registrarIncidente(@RequestBody IncidenteModel datosIncidenteNuevo) {
 		return incidenteService.registrarIncidente(datosIncidenteNuevo);
 	}
 	
-	@PostMapping(value = "/validarEquipo", produces = "application/json", consumes = "application/json")
-	@CrossOrigin
-	@ResponseStatus(code = HttpStatus.OK)
-	public MaquinaModel validarMaquina(@RequestBody IncidenteModel datosIncidenteNuevo) {
-		return incidenteService.validarMaquina(datosIncidenteNuevo);
-	}
-	
-	@PostMapping(value = "/validarUsuario", produces = "application/json", consumes = "application/json")
-	@CrossOrigin
-	@ResponseStatus(code = HttpStatus.OK)
-	public UsuarioModel validarUsuario(@RequestBody IncidenteModel datosIncidenteNuevo) {
-		return incidenteService.validarUsuario(datosIncidenteNuevo);
-	}
-	
-	
+//	@PostMapping(value = "/validarEquipo", produces = "application/json", consumes = "application/json")
+//	@CrossOrigin
+//	@ResponseStatus(code = HttpStatus.OK)
+//	public MaquinaModel validarMaquina(@RequestBody IncidenteModel datosIncidenteNuevo) {
+//		return incidenteService.validarMaquina(datosIncidenteNuevo);
+//	}
+//	
+//	@PostMapping(value = "/validarUsuario", produces = "application/json", consumes = "application/json")
+//	@CrossOrigin
+//	@ResponseStatus(code = HttpStatus.OK)
+//	public UsuarioModel validarUsuario(@RequestBody IncidenteModel datosIncidenteNuevo) {
+//		return incidenteService.validarUsuario(datosIncidenteNuevo);
+//	}
 	
 }

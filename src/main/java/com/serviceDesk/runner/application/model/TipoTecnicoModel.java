@@ -1,4 +1,4 @@
-package com.serviceDesk.runner.application.models;
+package com.serviceDesk.runner.application.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

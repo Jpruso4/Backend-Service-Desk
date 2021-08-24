@@ -21,11 +21,10 @@ import com.serviceDesk.runner.application.entities.Usuario;
 import com.serviceDesk.runner.application.mapper.impl.MapperIncidente;
 import com.serviceDesk.runner.application.mapper.impl.MapperMaquina;
 import com.serviceDesk.runner.application.mapper.impl.MapperUsuario;
-import com.serviceDesk.runner.application.models.BodyModel;
-import com.serviceDesk.runner.application.models.IncidenteModel;
-import com.serviceDesk.runner.application.models.MaquinaModel;
-import com.serviceDesk.runner.application.models.ResponseMensajeDto;
-import com.serviceDesk.runner.application.models.UsuarioModel;
+import com.serviceDesk.runner.application.model.IncidenteModel;
+import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.Response;
+import com.serviceDesk.runner.application.model.UsuarioModel;
 import com.serviceDesk.runner.application.service.IIncidenteService;
 import com.serviceDesk.runner.application.util.MensajesError;
 
@@ -80,9 +79,9 @@ public class IncidenteService  implements IIncidenteService{
 
 
 	@Override
-	public ResponseMensajeDto registrarIncidente(IncidenteModel datosIncidenteNuevo) {
+	public Response<IncidenteModel> registrarIncidente(IncidenteModel datosIncidenteNuevo) {
 		Incidente registroIncidente = new Incidente();
-		ResponseMensajeDto respuestaMensaje = new ResponseMensajeDto();
+
 		Optional<Tecnico> tecnicoEntity;
 		
 		registroIncidente.setFecha(datosIncidenteNuevo.getFecha());
@@ -121,8 +120,7 @@ public class IncidenteService  implements IIncidenteService{
 		
 		incidenteDao.save(registroIncidente);
 		
-		respuestaMensaje.setBody(new BodyModel(true));
-		return respuestaMensaje;
+		return new Response<IncidenteModel>(null,null,datosIncidenteNuevo);
 	}
 	
 	

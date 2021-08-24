@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.serviceDesk.runner.application.dao.ITipoIncidenteDao;
 import com.serviceDesk.runner.application.entities.TipoIncidente;
 import com.serviceDesk.runner.application.mapper.IMapperTipoIncidente;
-import com.serviceDesk.runner.application.models.TipoIncidenteModel;
+import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 import com.serviceDesk.runner.application.service.ITipoIncidenteService;
 
 public class TipoIncidenteService implements ITipoIncidenteService{

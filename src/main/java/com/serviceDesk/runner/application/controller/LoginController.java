@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.serviceDesk.runner.application.models.LoginModel;
-import com.serviceDesk.runner.application.models.ResponseMensajeDto;
+import com.serviceDesk.runner.application.model.LoginModel;
+import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.service.ILoginService;
 import com.serviceDesk.runner.application.util.UrlsControladores;
 
@@ -30,7 +30,8 @@ public class LoginController {
 	@PostMapping(value = "", produces = "application/json", consumes = "application/json")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public ResponseMensajeDto login (@Valid @RequestBody LoginModel loginModel) {
+	//TODO:Cambiar el retorno del login, que no sea de Modelo login sino del modelo Usuario, mostrando la info del usuario
+	public Response<LoginModel> login (@Valid @RequestBody LoginModel loginModel) {
 		return iLoginService.login(loginModel);
 	}
 }
