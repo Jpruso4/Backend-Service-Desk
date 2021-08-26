@@ -18,7 +18,7 @@ import com.serviceDesk.runner.application.model.UsuarioModel;
 public class MapperIncidente implements IMapperIncidente{
 
 	@Override
-	public IncidenteModel mostrarIncidente(Incidente incidenteEntity) {
+	public IncidenteModel mappearIncidente(Incidente incidenteEntity) {
 		IncidenteModel mostrarLista = new IncidenteModel();
 		mostrarLista.setIdIncidente(incidenteEntity.getIdIncidente());;
 		mostrarLista.setFecha(incidenteEntity.getFecha());

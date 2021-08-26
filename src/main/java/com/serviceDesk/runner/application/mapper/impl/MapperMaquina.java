@@ -12,7 +12,7 @@ import com.serviceDesk.runner.application.model.TipoDependenciaModel;
 public class MapperMaquina implements IMapperMaquina{
 	
 	@Override
-	public MaquinaModel mostrarMaquina(Maquina maquinaEntity){
+	public MaquinaModel mappearMaquina(Maquina maquinaEntity){
 		MaquinaModel mostrarMaquina = new MaquinaModel();
 		mostrarMaquina.setIdMaquina(maquinaEntity.getIdMaquina());
 		

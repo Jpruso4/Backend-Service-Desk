@@ -5,6 +5,6 @@ import com.serviceDesk.runner.application.model.MaquinaModel;
 
 public interface IMapperMaquina {
 	
-	public MaquinaModel mostrarMaquina(Maquina maquinaEntity);
+	public MaquinaModel mappearMaquina(Maquina maquinaEntity);
 
 }

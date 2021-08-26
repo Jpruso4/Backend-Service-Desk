@@ -7,7 +7,7 @@ import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 public class MapperTipoIncidente implements IMapperTipoIncidente{
 
 	@Override
-	public TipoIncidenteModel mostrarTipoIncidente(TipoIncidente listaTipoIncidente) {
+	public TipoIncidenteModel mappearTipoIncidente(TipoIncidente listaTipoIncidente) {
 		TipoIncidenteModel listTipoIncidenteModel = new TipoIncidenteModel();
 		listTipoIncidenteModel.setIdTipoIncidente(listaTipoIncidente.getIdTipoIncidente());
 		listTipoIncidenteModel.setNombreTipoIncidente(listaTipoIncidente.getNombreTipoIncidente());

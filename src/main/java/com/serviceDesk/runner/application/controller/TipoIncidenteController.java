@@ -8,22 +8,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.serviceDesk.runner.application.business.ITipoIncidenteBusiness;
+import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.model.TipoIncidenteModel;
-import com.serviceDesk.runner.application.service.ITipoIncidenteService;
 
 public class TipoIncidenteController {
-
-private final ITipoIncidenteService iTipoIncidenteService;
+	
+	private final ITipoIncidenteBusiness iTipoIncidenteBusiness;
 	
 	@Autowired
-	public TipoIncidenteController(ITipoIncidenteService iTipoIncidenteService) {
-		this.iTipoIncidenteService = iTipoIncidenteService;
+	public TipoIncidenteController(ITipoIncidenteBusiness iTipoIncidenteBusiness) {
+		this.iTipoIncidenteBusiness = iTipoIncidenteBusiness;
 	}
 	
 	@GetMapping(value = "")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<TipoIncidenteModel> mostrarTiposDeIncidentes(){
-		return iTipoIncidenteService.mostrarListaIncidentes(); 
+	public Response<List<TipoIncidenteModel>> mostrarTiposDeIncidentes(){
+		return iTipoIncidenteBusiness.mostrarListaIncidentes(); 
 	}
 }

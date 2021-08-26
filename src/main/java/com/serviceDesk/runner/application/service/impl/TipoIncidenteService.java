@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.serviceDesk.runner.application.dao.ITipoIncidenteDao;
 import com.serviceDesk.runner.application.entities.TipoIncidente;
 import com.serviceDesk.runner.application.mapper.IMapperTipoIncidente;
+import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 import com.serviceDesk.runner.application.service.ITipoIncidenteService;
 
@@ -21,13 +22,13 @@ public class TipoIncidenteService implements ITipoIncidenteService{
 	}
 
 	@Override
-	public List<TipoIncidenteModel> mostrarListaIncidentes() {
+	public Response<List<TipoIncidenteModel>> mostrarListaIncidentes() {
 		List<TipoIncidenteModel> tipoIncidentes = new LinkedList<>();
 		List<TipoIncidente> tipoIncidenteEntities = iTipoIncidenteDao.findAll();
 		for(TipoIncidente tipoIncidente : tipoIncidenteEntities) {
-			tipoIncidentes.add(iMapperTipoIncidente.mostrarTipoIncidente(tipoIncidente));
+			tipoIncidentes.add(iMapperTipoIncidente.mappearTipoIncidente(tipoIncidente));
 		}
-		return tipoIncidentes;
+		return new Response<List<TipoIncidenteModel>>(null,null, tipoIncidentes);
 	}
 
 }

@@ -16,63 +16,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.serviceDesk.runner.application.business.IIncidenteBusiness;
 import com.serviceDesk.runner.application.model.IncidenteModel;
-import com.serviceDesk.runner.application.model.MaquinaModel;
 import com.serviceDesk.runner.application.model.Response;
-import com.serviceDesk.runner.application.model.UsuarioModel;
-import com.serviceDesk.runner.application.service.impl.IncidenteService;
 import com.serviceDesk.runner.application.util.UrlsControladores;
 
 @RestController
 @RequestMapping(UrlsControladores.INCIDENTE_CONTROLLER)
 public class IncidenteController {
 
-	private final IncidenteService incidenteService; 
+	private final IIncidenteBusiness iIncidenteBusiness;
 
 	@Autowired
-	public IncidenteController(IncidenteService incidenteService) {
-		this.incidenteService = incidenteService;
+	public IncidenteController(IIncidenteBusiness iIncidenteBusiness) {
+		this.iIncidenteBusiness = iIncidenteBusiness;
+	}
+	
+	@GetMapping(value = "/{idIncidente}")
+	@CrossOrigin
+	@ResponseStatus(code = HttpStatus.OK)
+	public Response<IncidenteModel> mostrarIncidente(
+			@Valid @NotNull(message = "The value is required") @PathVariable("idIncidente") Integer idIncidente) {
+		return iIncidenteBusiness.mostrarIncidente(idIncidente);
 	}
 	
 	@GetMapping(value = "")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public List<IncidenteModel> mostrarIncidentes(){
-		return incidenteService.mostrarListaIncidentes();
+	public Response<List<IncidenteModel>> mostrarIncidentes(){
+		return iIncidenteBusiness.mostrarListaIncidentes();
 	}
 	
-	//Falta metodo para buscar un incidente por id en especifico
-//	@GetMapping(value = "/{idIncidente}")
-//	@CrossOrigin
-//	@ResponseStatus(code = HttpStatus.OK)
-//	public IncidenteModel mostrarIncidente(
-//			@Valid @NotNull(message = "The value is required") @PathVariable("idIncidente") Integer idIncidente) {
-//		return incidenteService.mostrarIncidente(idIncidente);
-//	}
+	//TODO:Falta metodo de modificar incidente
 	
-	//Falta metodo de modificar incidente
-	
-	//Falta metodo de eliminar un incidente cambiar estado Solucionado / pendiente
+	//TODO:Falta metodo de eliminar un incidente cambiar estado Solucionado / pendiente
 	
 	@PostMapping(value = "", produces = "application/json", consumes = "application/json")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Response<IncidenteModel> registrarIncidente(@RequestBody IncidenteModel datosIncidenteNuevo) {
-		return incidenteService.registrarIncidente(datosIncidenteNuevo);
+	public Response<Boolean> registrarIncidente(@RequestBody IncidenteModel datosIncidenteNuevo) {
+		return iIncidenteBusiness.registrarIncidente(datosIncidenteNuevo);
 	}
-	
-//	@PostMapping(value = "/validarEquipo", produces = "application/json", consumes = "application/json")
-//	@CrossOrigin
-//	@ResponseStatus(code = HttpStatus.OK)
-//	public MaquinaModel validarMaquina(@RequestBody IncidenteModel datosIncidenteNuevo) {
-//		return incidenteService.validarMaquina(datosIncidenteNuevo);
-//	}
-//	
-//	@PostMapping(value = "/validarUsuario", produces = "application/json", consumes = "application/json")
-//	@CrossOrigin
-//	@ResponseStatus(code = HttpStatus.OK)
-//	public UsuarioModel validarUsuario(@RequestBody IncidenteModel datosIncidenteNuevo) {
-//		return incidenteService.validarUsuario(datosIncidenteNuevo);
-//	}
 	
 }

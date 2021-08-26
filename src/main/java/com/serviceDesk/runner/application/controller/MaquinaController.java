@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.serviceDesk.runner.application.business.IMaquinaBusiness;
 import com.serviceDesk.runner.application.model.MaquinaModel;
 import com.serviceDesk.runner.application.model.Response;
-import com.serviceDesk.runner.application.service.IMaquinaService;
 import com.serviceDesk.runner.application.util.UrlsControladores;
 
 @RestController
 @RequestMapping(UrlsControladores.MAQUINA_CONTROLLER)
 public class MaquinaController{
 	
-	private final IMaquinaService iMaquinaService;
+	private final IMaquinaBusiness iMaquinaBusiness;
 	
 	@Autowired
-	public MaquinaController(IMaquinaService iMaquinaService) {
-		this.iMaquinaService = iMaquinaService;
+	public MaquinaController(IMaquinaBusiness iMaquinaBusiness) {
+		this.iMaquinaBusiness = iMaquinaBusiness;
 	}
 	
 	@GetMapping(value = "")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
 	public Response<List<MaquinaModel>> mostrarMaquinas(){
-		return iMaquinaService.mostrarListaMaquinas();
+		return iMaquinaBusiness.mostrarListaMaquinas();
 	}
 	
 	@GetMapping(value = "/{idMaquina}")
@@ -46,28 +46,28 @@ public class MaquinaController{
 	@ResponseStatus(code = HttpStatus.OK)
 	public Response<MaquinaModel> mostrarMaquina(
 			@Valid @NotNull(message = "The value is required") @PathVariable("idMaquina") Integer idMaquina) {
-		return iMaquinaService.mostrarMaquina(idMaquina);
+		return iMaquinaBusiness.mostrarMaquina(idMaquina);
 	}
 	
 	@PostMapping(value = "", produces = "application/json", consumes = "application/json")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Response<MaquinaModel> registrarMaquina(@RequestBody MaquinaModel datosMaquinaNueva) {
-		return iMaquinaService.registrarMaquina(datosMaquinaNueva);
+	public Response<Boolean> registrarMaquina(@RequestBody MaquinaModel datosMaquinaNueva) {
+		return iMaquinaBusiness.registrarMaquina(datosMaquinaNueva);
 	}
 	
 	@PutMapping(produces = "application/json", consumes = "application/json")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public Response<MaquinaModel>  actualizarMovimiento(@RequestBody MaquinaModel datosMaquinaModificar) {
-		return iMaquinaService.actualizarMaquina(datosMaquinaModificar);
+	public Response<Boolean>  actualizarMovimiento(@RequestBody MaquinaModel datosMaquinaModificar) {
+		return iMaquinaBusiness.actualizarMaquina(datosMaquinaModificar);
 	}
 
 	@DeleteMapping(value = "/{idMaquina}")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public Response<MaquinaModel> eliminarMaquina(@PathVariable("idMaquina") Integer idMaquina) {
-		return iMaquinaService.eliminarMovimiento(idMaquina);
+	public Response<Boolean> eliminarMaquina(@PathVariable("idMaquina") Integer idMaquina) {
+		return iMaquinaBusiness.eliminarMovimiento(idMaquina);
 	}
 	
 	
