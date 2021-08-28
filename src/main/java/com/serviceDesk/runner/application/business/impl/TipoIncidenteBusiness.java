@@ -16,8 +16,8 @@ public class TipoIncidenteBusiness implements ITipoIncidenteBusiness{
 	}
 	
 	@Override
-	public Response<List<TipoIncidenteModel>> mostrarListaIncidentes() {
-		return iTipoIncidenteService.mostrarListaIncidentes();
+	public Response<List<TipoIncidenteModel>> mostrarListaTiposIncidentes() {
+		return iTipoIncidenteService.mostrarListaTiposIncidentes();
 	}
 
 }

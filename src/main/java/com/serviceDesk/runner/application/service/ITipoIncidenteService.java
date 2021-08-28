@@ -7,6 +7,6 @@ import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 
 public interface ITipoIncidenteService {
 
-	Response<List<TipoIncidenteModel>> mostrarListaIncidentes();
+	Response<List<TipoIncidenteModel>> mostrarListaTiposIncidentes();
 
 }

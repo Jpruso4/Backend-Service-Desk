@@ -16,9 +16,22 @@ public class TecnicoRepository implements ITecnicoRepository{
 	public TecnicoRepository(ITecnicoDao iTecnicoDao) {
 		this.iTecnicoDao = iTecnicoDao;
 	}
+	
+	@Override
+	public boolean consultarExistenciaTecnico(Integer idTecnico) {
+		Optional<Tecnico> tecnicoData = iTecnicoDao.findById(idTecnico);
+		if (!tecnicoData.isPresent())
+			return false;
+		return true;
+	}
 
 	@Override
-	public boolean consultarExistenciaTecnico(String nombreTecnico) {
+	public Optional<Tecnico> obtenerDatosTecnico(Integer idTecnico) {
+		return iTecnicoDao.findById(idTecnico);
+	}
+
+	@Override
+	public boolean consultarExistenciaTecnicoPorNombres(String nombreTecnico) {
 		Optional<Tecnico> tecnicoData = iTecnicoDao.obtenerTecnicoPorNombre(nombreTecnico);
 		if (!tecnicoData.isPresent())
 			return false;
@@ -26,7 +39,7 @@ public class TecnicoRepository implements ITecnicoRepository{
 	}
 
 	@Override
-	public Optional<Tecnico> obtenerDatosTecnico(String nombreTecnico) {
+	public Optional<Tecnico> obtenerDatosTecnicoPorNombres(String nombreTecnico) {
 		return iTecnicoDao.obtenerTecnicoPorNombre(nombreTecnico);
 	}
 

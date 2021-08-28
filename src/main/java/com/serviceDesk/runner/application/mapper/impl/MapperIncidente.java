@@ -54,6 +54,10 @@ public class MapperIncidente implements IMapperIncidente{
 		mostrarLista.setTecnico(tecnicoModel);
 		mostrarLista.setTipoIncidente(tipoIncidenteModel);
 		mostrarLista.setUsuario(usuarioModel);
+		mostrarLista.setDeclaracionTecnico(incidenteEntity.getDeclaracionTecnico());
+		mostrarLista.setDeclaracionEscalonamiento(incidenteEntity.getDeclaracionEscalonamiento());
+		mostrarLista.setFechaSolucion(incidenteEntity.getFechaSolucion());
+		mostrarLista.setIdTecnicoEscalono(incidenteEntity.getIdTecnicoEscalono());
 		
 		if(incidenteEntity.getEstado() == 1){
 			mostrarLista.setEstado("Pendiente");

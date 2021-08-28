@@ -13,4 +13,8 @@ public interface IIncidenteBusiness {
 
 	Response<Boolean> registrarIncidente(IncidenteModel datosIncidenteNuevo);
 
+	Response<Boolean> actualizarIncidente(IncidenteModel datosIncidenteModificar);
+
+	Response<Boolean> eliminarIncidente(Integer idIncidente);
+
 }

@@ -23,14 +23,24 @@ public class Incidente implements Serializable {
 	@Column(name="declaracion_callcenter")
 	private String declaracionCallcenter;
 
+	@Column(name="declaracion_escalonamiento")
+	private String declaracionEscalonamiento;
+
 	@Lob
 	@Column(name="declaracion_tecnico")
 	private String declaracionTecnico;
-
+	
 	private int estado;
 
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_solucion")
+	private Date fechaSolucion;
+
+	@Column(name="id_tecnico_escalono")
+	private Integer idTecnicoEscalono;
 
 	@Lob
 	@Column(name="problema_usuario")
@@ -75,6 +85,14 @@ public class Incidente implements Serializable {
 		this.declaracionCallcenter = declaracionCallcenter;
 	}
 
+	public String getDeclaracionEscalonamiento() {
+		return this.declaracionEscalonamiento;
+	}
+
+	public void setDeclaracionEscalonamiento(String declaracionEscalonamiento) {
+		this.declaracionEscalonamiento = declaracionEscalonamiento;
+	}
+
 	public String getDeclaracionTecnico() {
 		return this.declaracionTecnico;
 	}
@@ -97,6 +115,23 @@ public class Incidente implements Serializable {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Date getFechaSolucion() {
+		return this.fechaSolucion;
+	}
+
+	public void setFechaSolucion(Date fechaSolucion) {
+		this.fechaSolucion = fechaSolucion;
+	}
+
+
+	public Integer getIdTecnicoEscalono() {
+		return this.idTecnicoEscalono;
+	}
+
+	public void setIdTecnicoEscalono(Integer idTecnicoEscalono) {
+		this.idTecnicoEscalono = idTecnicoEscalono;
 	}
 
 	public String getProblemaUsuario() {

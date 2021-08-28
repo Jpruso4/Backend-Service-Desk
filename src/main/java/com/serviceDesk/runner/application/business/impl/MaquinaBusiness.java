@@ -15,6 +15,7 @@ import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.repository.IMaquinaRespository;
 import com.serviceDesk.runner.application.repository.ITipoDependenciaRepository;
 import com.serviceDesk.runner.application.service.IMaquinaService;
+import com.serviceDesk.runner.application.util.CodigosError;
 import com.serviceDesk.runner.application.util.MensajesError;
 
 public class MaquinaBusiness implements IMaquinaBusiness {
@@ -45,10 +46,13 @@ public class MaquinaBusiness implements IMaquinaBusiness {
 	public Response<Boolean> registrarMaquina(MaquinaModel datosMaquinaNueva) {
 		Maquina registroMaquina = new Maquina();
 
-		Optional<TipoDependencia> tipoDependenciaEntity = iTipoDependenciaRepository.obtenerElTipoDeDependencia(
-				datosMaquinaNueva.getTipoDependencia().getIdTipoDependencia());
+		if (!iTipoDependenciaRepository
+				.existeTipoDeDependencia(datosMaquinaNueva.getTipoDependencia().getIdTipoDependencia()))
+			return new Response<Boolean>(CodigosError.COD_TIPO_DE_DEPENDENCIA_INEXISTENTE, MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
 
-		registroMaquina.setTipoDependencia(tipoDependenciaEntity.get());
+		registroMaquina.setTipoDependencia(iTipoDependenciaRepository
+				.obtenerElTipoDeDependencia(datosMaquinaNueva.getTipoDependencia().getIdTipoDependencia()).get());
+
 		registroMaquina.setNumeroComputador(datosMaquinaNueva.getNumeroComputador());
 		registroMaquina.setNumeroDependencia(datosMaquinaNueva.getNumeroDependencia());
 		registroMaquina.setBloqueDependencia(datosMaquinaNueva.getBloqueDependencia());
@@ -65,27 +69,25 @@ public class MaquinaBusiness implements IMaquinaBusiness {
 
 	@Override
 	public Response<Boolean> actualizarMaquina(MaquinaModel datosMaquinaModificar) {
-		boolean existeMaquina = iMaquinaRepository.consultarExistenciaMaquina(datosMaquinaModificar.getIdMaquina());
-		if (!existeMaquina)
-			return new Response<Boolean>(null, MensajesError.MAQUINA_INEXISTENTE, null);
+		if (!iMaquinaRepository.consultarExistenciaMaquina(datosMaquinaModificar.getIdMaquina()))
+			return new Response<Boolean>(CodigosError.COD_MAQUINA_INEXISTENTE, MensajesError.MAQUINA_INEXISTENTE, null);
 
-		boolean existeTipoDependencia = iTipoDependenciaRepository.existeTipoDeDependencia(
-				datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia());
-		if (!existeTipoDependencia)
-			return new Response<Boolean>(null, MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
+		if (!iTipoDependenciaRepository
+				.existeTipoDeDependencia(datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia()))
+			return new Response<Boolean>(CodigosError.COD_TIPO_DE_DEPENDENCIA_INEXISTENTE, MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
 
 		Maquina maquinaModificar = validarCambiosActualizarMaquina(
-				iMaquinaRepository.obtenerDatosMaquina(datosMaquinaModificar.getIdMaquina()),
-				datosMaquinaModificar, iTipoDependenciaRepository.obtenerElTipoDeDependencia(
-						datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia()));
+				iMaquinaRepository.obtenerDatosMaquina(datosMaquinaModificar.getIdMaquina()), datosMaquinaModificar,
+				iTipoDependenciaRepository
+						.obtenerElTipoDeDependencia(datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia()));
 		return iMaquinaService.actualizarMaquina(maquinaModificar);
 	}
 
 	@Override
-	public Response<Boolean> eliminarMovimiento(Integer idMaquina) {
-		return iMaquinaService.eliminarMovimiento(idMaquina, iMaquinaRepository.consultarExistenciaMaquina(idMaquina));
+	public Response<Boolean> eliminarMaquina(Integer idMaquina) {
+		return iMaquinaService.eliminarMaquina(idMaquina, iMaquinaRepository.consultarExistenciaMaquina(idMaquina));
 	}
-	
+
 	private Maquina validarCambiosActualizarMaquina(Optional<Maquina> datosMaquinaBD,
 			MaquinaModel datosMaquinaModificar, Optional<TipoDependencia> datosTipoDependenciaBD) {
 

@@ -10,26 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.serviceDesk.runner.application.business.ITipoIncidenteBusiness;
+import com.serviceDesk.runner.application.business.ITipoDependenciaBusiness;
 import com.serviceDesk.runner.application.model.Response;
-import com.serviceDesk.runner.application.model.TipoIncidenteModel;
+import com.serviceDesk.runner.application.model.TipoDependenciaModel;
 import com.serviceDesk.runner.application.util.UrlsControladores;
 
 @RestController
-@RequestMapping(UrlsControladores.TIPO_INCIDENTE_CONTROLLER)
-public class TipoIncidenteController {
+@RequestMapping(UrlsControladores.TIPO_DEPENDENCIA_CONTROLLER)
+public class TipoDependenciaController {
 	
-	private final ITipoIncidenteBusiness iTipoIncidenteBusiness;
+	private final ITipoDependenciaBusiness iTipoDependenciaBusiness;
 	
 	@Autowired
-	public TipoIncidenteController(ITipoIncidenteBusiness iTipoIncidenteBusiness) {
-		this.iTipoIncidenteBusiness = iTipoIncidenteBusiness;
+	public TipoDependenciaController(ITipoDependenciaBusiness iTipoDependenciaBusiness) {
+		this.iTipoDependenciaBusiness = iTipoDependenciaBusiness;
 	}
 	
 	@GetMapping(value = "")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public Response<List<TipoIncidenteModel>> mostrarTiposDeIncidentes(){
-		return iTipoIncidenteBusiness.mostrarListaTiposIncidentes(); 
+	public Response<List<TipoDependenciaModel>> mostrarTiposDeDependencia(){
+		return iTipoDependenciaBusiness.mostrarListaTiposDeDependencia();
 	}
+
 }

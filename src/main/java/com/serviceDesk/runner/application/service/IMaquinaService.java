@@ -16,6 +16,6 @@ public interface IMaquinaService {
 
 	Response<Boolean> actualizarMaquina(Maquina datosMaquinaModificar);
 	
-	Response<Boolean> eliminarMovimiento(Integer idMaquina, boolean existeMaquina);
+	Response<Boolean> eliminarMaquina(Integer idMaquina, boolean existeMaquina);
 
 }

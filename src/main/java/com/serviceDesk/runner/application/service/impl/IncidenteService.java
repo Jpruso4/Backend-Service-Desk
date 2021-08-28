@@ -13,6 +13,7 @@ import com.serviceDesk.runner.application.model.IncidenteModel;
 import com.serviceDesk.runner.application.model.Response;
 
 import com.serviceDesk.runner.application.service.IIncidenteService;
+import com.serviceDesk.runner.application.util.CodigosError;
 import com.serviceDesk.runner.application.util.MensajesError;
 
 @Service
@@ -33,7 +34,7 @@ public class IncidenteService  implements IIncidenteService{
 		Optional<Incidente> incidenteData = iIncidenteDao.findById(idIncidente);
 
 		if(!incidenteData.isPresent()) {
-			return new Response<IncidenteModel>(null, MensajesError.INCIDENTE_INEXISTENTE, null);
+			return new Response<IncidenteModel>(CodigosError.COD_INCIDENTE_INEXISTENTE, MensajesError.INCIDENTE_INEXISTENTE, null);
 		}
 		return new Response<IncidenteModel>(null,null, iMapperIncidente.mappearIncidente(incidenteData.get()));
 	}
@@ -47,20 +48,25 @@ public class IncidenteService  implements IIncidenteService{
 		}
 		return new Response<List<IncidenteModel>>(null, null, incidentes);
 	}
-	
-//	public UsuarioModel validarUsuario(IncidenteModel datosIncidenteModel) {
-//		Optional<Usuario> usuarioEntity = usuarioDao.obtenerUsuarioDocumento(datosIncidenteModel.getUsuario().getNumeroDocumento());
-//		return mapperUsuario.mostrarUsuario(usuarioEntity.get());
-//	}
-	
-//	public MaquinaModel validarMaquina(IncidenteModel datosIncidenteModel) {
-//		Optional<Maquina> maquinaEntity = maquinaDao.obtenerMaquinaPorSalon(datosIncidenteModel.getMaquina().getNumeroComputador(), datosIncidenteModel.getMaquina().getNumeroDependencia(), datosIncidenteModel.getMaquina().getBloqueDependencia());
-//		return mapperMaquina.mappearMaquina(maquinaEntity.get());
-//	}
 
 	@Override
 	public Response<Boolean> registrarIncidente(Incidente datosIncidenteNuevo) {
 		iIncidenteDao.save(datosIncidenteNuevo);
 		return new Response<Boolean>(null,null,true);
+	}
+
+	@Override
+	public Response<Boolean> actualizarIncidente(Incidente incidenteModificar) {
+		iIncidenteDao.save(incidenteModificar);
+		return new Response<Boolean>(null, null, true);
+	}
+
+	@Override
+	public Response<Boolean> eliminarIncidente(Integer idIncidente, boolean existeIncidente) {
+		if(existeIncidente) {
+			iIncidenteDao.deleteById(idIncidente);
+			return new Response<Boolean>(null, null, true);
+		}else
+			return new Response<Boolean>(CodigosError.COD_INCIDENTE_INEXISTENTE,MensajesError.INCIDENTE_INEXISTENTE, null);
 	}
 }

@@ -21,4 +21,8 @@ public class IncidenteModel {
 	private String declaracionCallcenter;
 	private String problemaUsuario;
 	private String estado;
+	private String declaracionTecnico;
+	private String declaracionEscalonamiento;
+	private Date fechaSolucion;
+	private Integer idTecnicoEscalono;
 }

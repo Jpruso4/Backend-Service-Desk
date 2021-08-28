@@ -16,6 +16,7 @@ import com.serviceDesk.runner.application.mapper.IMapperMaquina;
 import com.serviceDesk.runner.application.model.MaquinaModel;
 import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.service.IMaquinaService;
+import com.serviceDesk.runner.application.util.CodigosError;
 import com.serviceDesk.runner.application.util.MensajesError;
 
 @Service
@@ -37,7 +38,7 @@ public class MaquinaService implements IMaquinaService {
 		Optional<Maquina> maquinaData = iMaquinaDao.findById(idMaquina);
 
 		if (!maquinaData.isPresent()) {
-			return new Response<MaquinaModel>(null, MensajesError.MAQUINA_INEXISTENTE, null);
+			return new Response<MaquinaModel>(CodigosError.COD_MAQUINA_INEXISTENTE, MensajesError.MAQUINA_INEXISTENTE, null);
 		}
 		return new Response<MaquinaModel>(null, null, iMapperMaquina.mappearMaquina(maquinaData.get()));
 	}
@@ -65,11 +66,11 @@ public class MaquinaService implements IMaquinaService {
 	}
 
 	@Override
-	public Response<Boolean> eliminarMovimiento(Integer idMaquina, boolean existeMaquina) {
+	public Response<Boolean> eliminarMaquina(Integer idMaquina, boolean existeMaquina) {
 		 if(existeMaquina) {
 			iMaquinaDao.deleteById(idMaquina);
 			return new Response<Boolean>(null, null, true);
 		} else
-			return new Response<Boolean>(null, MensajesError.MAQUINA_INEXISTENTE, null);
+			return new Response<Boolean>(CodigosError.COD_MAQUINA_INEXISTENTE, MensajesError.MAQUINA_INEXISTENTE, null);
 	}
 }

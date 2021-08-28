@@ -15,5 +15,5 @@ public interface IMaquinaBusiness {
 
 	Response<Boolean> actualizarMaquina(MaquinaModel datosMaquinaModificar);
 	
-	Response<Boolean> eliminarMovimiento(Integer idMaquina);
+	Response<Boolean> eliminarMaquina(Integer idMaquina);
 }

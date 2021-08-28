@@ -59,7 +59,7 @@ public class MaquinaController{
 	@PutMapping(produces = "application/json", consumes = "application/json")
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
-	public Response<Boolean>  actualizarMovimiento(@RequestBody MaquinaModel datosMaquinaModificar) {
+	public Response<Boolean>  actualizarMaquina(@RequestBody MaquinaModel datosMaquinaModificar) {
 		return iMaquinaBusiness.actualizarMaquina(datosMaquinaModificar);
 	}
 
@@ -67,7 +67,7 @@ public class MaquinaController{
 	@CrossOrigin
 	@ResponseStatus(code = HttpStatus.OK)
 	public Response<Boolean> eliminarMaquina(@PathVariable("idMaquina") Integer idMaquina) {
-		return iMaquinaBusiness.eliminarMovimiento(idMaquina);
+		return iMaquinaBusiness.eliminarMaquina(idMaquina);
 	}
 	
 	

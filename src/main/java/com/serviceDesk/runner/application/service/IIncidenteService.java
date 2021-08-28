@@ -13,4 +13,8 @@ public interface IIncidenteService {
 	Response<List<IncidenteModel>> mostrarListaIncidentes();
 	
 	public Response<Boolean> registrarIncidente(Incidente datosIncidenteNuevo);
+
+	public Response<Boolean> actualizarIncidente(Incidente incidenteModificar);
+
+	public Response<Boolean> eliminarIncidente(Integer idIncidente, boolean existeIncidente);
 }

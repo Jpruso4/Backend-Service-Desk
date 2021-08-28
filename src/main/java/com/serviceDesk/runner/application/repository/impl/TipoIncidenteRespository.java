@@ -15,7 +15,7 @@ public class TipoIncidenteRespository implements ITipoIncidenteRepository{
 	}
 
 	@Override
-	public boolean consultarExistenciaTipoIncidente(String nombreTipoIncidente) {
+	public boolean consultarExistenciaTipoIncidentePorNombre(String nombreTipoIncidente) {
 		Optional<TipoIncidente> tipoIncidenteData = iTipoIncidenteDao.obtenerTipoIncidente(nombreTipoIncidente);
 		if(!tipoIncidenteData.isPresent())
 			return false;
@@ -23,8 +23,21 @@ public class TipoIncidenteRespository implements ITipoIncidenteRepository{
 	}
 
 	@Override
-	public Optional<TipoIncidente> obtenerDatosTipoIncidente(String nombreTipoIncidente) {
+	public Optional<TipoIncidente> obtenerDatosTipoIncidentePorNombre(String nombreTipoIncidente) {
 		return iTipoIncidenteDao.obtenerTipoIncidente(nombreTipoIncidente);
+	}
+
+	@Override
+	public boolean consultarExistenciaTipoIncidente(int idTipoIncidente) {
+		Optional<TipoIncidente> tipoIncidenteData = iTipoIncidenteDao.findById(idTipoIncidente);
+		if(!tipoIncidenteData.isPresent())
+			return false;
+		return true;
+	}
+
+	@Override
+	public Optional<TipoIncidente> obtenerDatosTipoIncidente(int idTipoIncidente) {
+		return iTipoIncidenteDao.findById(idTipoIncidente);
 	}
 
 }
