@@ -10,8 +10,8 @@ public interface IMaquinaRespository {
 	
 	public Optional<Maquina> obtenerDatosMaquina (int idMaquina);
 	
-	public Optional<Maquina> obtenerMaquinaPorSalon (int numeroComputador, int numeroDependencia, String bloqueDependencia);
+	public Optional<Maquina> obtenerMaquinaPorSalon (int numeroComputador, String numeroDependencia, String bloqueDependencia);
 	
-	public boolean consultarExisteMaquinaSalon (int numeroComputador, int numeroDependencia, String bloqueDependencia);
+	public boolean consultarExisteMaquinaSalon (int numeroComputador, String numeroDependencia, String bloqueDependencia);
 }
 

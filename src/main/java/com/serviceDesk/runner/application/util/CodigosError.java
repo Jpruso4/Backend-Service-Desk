@@ -11,4 +11,6 @@ public class CodigosError {
     public static final int COD_TIPO_DE_DOCUMENTO_INEXISTENTE = 8;
     public static final int COD_TIPO_DE_TECNICO_INEXISTENTE = 9;
     public static final int COD_TIPO_DE_USUARIO_INEXISTENTE = 10;
+    public static final int COD_BLOQUE_DE_DEPENDENCIA_INEXISTENTE = 11;
+    public static final int COD_NUMERO_DE_DEPENDENCIA_INEXISTENTE = 12;
 }

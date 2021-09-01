@@ -29,7 +29,7 @@ public class Incidente implements Serializable {
 	@Lob
 	@Column(name="declaracion_tecnico")
 	private String declaracionTecnico;
-	
+
 	private int estado;
 
 	@Temporal(TemporalType.DATE)
@@ -40,7 +40,7 @@ public class Incidente implements Serializable {
 	private Date fechaSolucion;
 
 	@Column(name="id_tecnico_escalono")
-	private Integer idTecnicoEscalono;
+	private int idTecnicoEscalono;
 
 	@Lob
 	@Column(name="problema_usuario")
@@ -125,12 +125,11 @@ public class Incidente implements Serializable {
 		this.fechaSolucion = fechaSolucion;
 	}
 
-
-	public Integer getIdTecnicoEscalono() {
+	public int getIdTecnicoEscalono() {
 		return this.idTecnicoEscalono;
 	}
 
-	public void setIdTecnicoEscalono(Integer idTecnicoEscalono) {
+	public void setIdTecnicoEscalono(int idTecnicoEscalono) {
 		this.idTecnicoEscalono = idTecnicoEscalono;
 	}
 

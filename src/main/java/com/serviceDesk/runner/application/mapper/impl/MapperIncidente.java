@@ -2,14 +2,18 @@ package com.serviceDesk.runner.application.mapper.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.serviceDesk.runner.application.entities.BloqueDependencia;
 import com.serviceDesk.runner.application.entities.Incidente;
 import com.serviceDesk.runner.application.entities.Maquina;
+import com.serviceDesk.runner.application.entities.NumeroDependencia;
 import com.serviceDesk.runner.application.entities.Tecnico;
 import com.serviceDesk.runner.application.entities.TipoIncidente;
 import com.serviceDesk.runner.application.entities.Usuario;
 import com.serviceDesk.runner.application.mapper.IMapperIncidente;
+import com.serviceDesk.runner.application.model.BloqueDependenciaModel;
 import com.serviceDesk.runner.application.model.IncidenteModel;
 import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.NumeroDependenciaModel;
 import com.serviceDesk.runner.application.model.TecnicoModel;
 import com.serviceDesk.runner.application.model.TipoIncidenteModel;
 import com.serviceDesk.runner.application.model.UsuarioModel;
@@ -35,10 +39,20 @@ public class MapperIncidente implements IMapperIncidente{
 		Usuario usuario = incidenteEntity.getUsuario();
 		UsuarioModel usuarioModel = new UsuarioModel();
 		
+		BloqueDependencia bloqueDependencia = maquina.getBloqueDependencia();
+		BloqueDependenciaModel bloqueDependenciaModel = new BloqueDependenciaModel();
+		NumeroDependencia numeroDependencia = maquina.getNumeroDependencia();
+		NumeroDependenciaModel numeroDependenciaModel = new NumeroDependenciaModel();
+		
+		bloqueDependenciaModel.setIdBloqueDependencia(bloqueDependencia.getIdBloqueDependencia());
+		bloqueDependenciaModel.setNombreBloqueDependencia(bloqueDependencia.getNombreBloqueDependenciaa());
+		numeroDependenciaModel.setIdNumeroDependencia(numeroDependencia.getIdNumeroDependencia());
+		numeroDependenciaModel.setNumeroDependencia(numeroDependencia.getNumeroDependencia());
+		
 		maquinaModel.setIdMaquina(maquina.getIdMaquina());
-		maquinaModel.setNumeroDependencia(maquina.getNumeroDependencia());
+		maquinaModel.setBloqueDependencia(bloqueDependenciaModel);
 		maquinaModel.setNumeroComputador(maquina.getNumeroComputador());
-		maquinaModel.setBloqueDependencia(maquina.getBloqueDependencia());
+		maquinaModel.setNumeroDependencia(numeroDependenciaModel);
 		
 		tecnicoModel.setIdTecnico(tecnico.getIdTecnico());
 		tecnicoModel.setNombres(tecnico.getNombres());

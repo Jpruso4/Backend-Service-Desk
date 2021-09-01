@@ -21,7 +21,7 @@ public class TipoUsuario implements Serializable {
 
 	@Column(name="nombre_tipo_usuario")
 	private String nombreTipoUsuario;
-
+	
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="tipoUsuario")
 	private List<Usuario> usuarios;

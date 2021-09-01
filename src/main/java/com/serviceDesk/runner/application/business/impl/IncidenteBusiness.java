@@ -1,6 +1,7 @@
 package com.serviceDesk.runner.application.business.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,13 +66,15 @@ public class IncidenteBusiness implements IIncidenteBusiness {
 				iUsuarioRespository.obtenerDatosUsuario(datosIncidenteNuevo.getUsuario().getNumeroDocumento()).get());
 
 		if (!iMaquinaRespository.consultarExisteMaquinaSalon(datosIncidenteNuevo.getMaquina().getNumeroComputador(),
-				datosIncidenteNuevo.getMaquina().getNumeroDependencia(),
-				datosIncidenteNuevo.getMaquina().getBloqueDependencia()))
+				datosIncidenteNuevo.getMaquina().getNumeroDependencia().getNumeroDependencia(),
+				datosIncidenteNuevo.getMaquina().getBloqueDependencia().getNombreBloqueDependencia()))
 			return new Response<Boolean>(CodigosError.COD_MAQUINA_INEXISTENTE, MensajesError.MAQUINA_INEXISTENTE, null);
-		registroIncidente.setMaquina(
-				iMaquinaRespository.obtenerMaquinaPorSalon(datosIncidenteNuevo.getMaquina().getNumeroComputador(),
-						datosIncidenteNuevo.getMaquina().getNumeroDependencia(),
-						datosIncidenteNuevo.getMaquina().getBloqueDependencia()).get());
+		registroIncidente
+				.setMaquina(iMaquinaRespository
+						.obtenerMaquinaPorSalon(datosIncidenteNuevo.getMaquina().getNumeroComputador(),
+								datosIncidenteNuevo.getMaquina().getNumeroDependencia().getNumeroDependencia(),
+								datosIncidenteNuevo.getMaquina().getBloqueDependencia().getNombreBloqueDependencia())
+						.get());
 
 		if (datosIncidenteNuevo.getTecnico().getNombres() == "") {
 			registroIncidente.setTecnico(iTecnicoRepository.obtenerDatosTecnicoPorNombres("call").get());
@@ -134,7 +137,8 @@ public class IncidenteBusiness implements IIncidenteBusiness {
 
 	@Override
 	public Response<Boolean> eliminarIncidente(Integer idIncidente) {
-		return iIncidenteService.eliminarIncidente(idIncidente, iIncidenteRepository.consultarExistenciaIncidente(idIncidente));
+		return iIncidenteService.eliminarIncidente(idIncidente,
+				iIncidenteRepository.consultarExistenciaIncidente(idIncidente));
 	}
 
 	private Incidente validarCambiosActualizarIncidente(Optional<Incidente> datosIncidenteBD,
@@ -158,8 +162,10 @@ public class IncidenteBusiness implements IIncidenteBusiness {
 		if (!(incidenteData.getFecha().equals(datosIncidenteModificar.getFecha())))
 			incidenteData.setFecha(datosIncidenteModificar.getFecha());
 
-		if (!(incidenteData.getDeclaracionCallcenter().equals(datosIncidenteModificar.getDeclaracionCallcenter())))
-			incidenteData.setDeclaracionCallcenter(datosIncidenteModificar.getDeclaracionCallcenter());
+		if (Objects.nonNull(incidenteData.getDeclaracionCallcenter())) {
+			if (!(incidenteData.getDeclaracionCallcenter().equals(datosIncidenteModificar.getDeclaracionCallcenter())))
+				incidenteData.setDeclaracionCallcenter(datosIncidenteModificar.getDeclaracionCallcenter());
+		}
 
 		if (!(incidenteData.getProblemaUsuario().equals(datosIncidenteModificar.getProblemaUsuario())))
 			incidenteData.setProblemaUsuario(datosIncidenteModificar.getProblemaUsuario());
@@ -167,19 +173,29 @@ public class IncidenteBusiness implements IIncidenteBusiness {
 		if (!(incidenteData.getEstado() == (Integer.parseInt(datosIncidenteModificar.getEstado()))))
 			incidenteData.setEstado(Integer.parseInt(datosIncidenteModificar.getEstado()));
 
-		if (!(incidenteData.getDeclaracionTecnico().equals(datosIncidenteModificar.getDeclaracionTecnico())))
-			incidenteData.setDeclaracionTecnico(datosIncidenteModificar.getDeclaracionTecnico());
+		if (!(Objects.equals(null, datosIncidenteModificar.getDeclaracionTecnico()))
+				&& !(Objects.equals(null, incidenteData.getDeclaracionTecnico()))) {
+			if (!(incidenteData.getDeclaracionTecnico().equals(datosIncidenteModificar.getDeclaracionTecnico())))
+				incidenteData.setDeclaracionTecnico(datosIncidenteModificar.getDeclaracionTecnico());
+		} else {
+			if ((Objects.equals(null, incidenteData.getDeclaracionTecnico()))
+					&& !(Objects.equals(null, datosIncidenteModificar.getDeclaracionTecnico())))
+				incidenteData.setDeclaracionTecnico(datosIncidenteModificar.getDeclaracionTecnico());
+		}
 
-		if (!(incidenteData.getDeclaracionEscalonamiento()
-				.equals(datosIncidenteModificar.getDeclaracionEscalonamiento())))
-			incidenteData.setDeclaracionEscalonamiento(datosIncidenteModificar.getDeclaracionEscalonamiento());
-
-		if (!(incidenteData.getFechaSolucion().equals(datosIncidenteModificar.getFechaSolucion())))
+		if (Objects.nonNull(incidenteData.getDeclaracionEscalonamiento())) {
+			if (!(incidenteData.getDeclaracionEscalonamiento()
+					.equals(datosIncidenteModificar.getDeclaracionEscalonamiento())))
+				incidenteData.setDeclaracionEscalonamiento(datosIncidenteModificar.getDeclaracionEscalonamiento());
+		}
+			
+		if(Objects.nonNull(datosIncidenteModificar.getFechaSolucion()))
 			incidenteData.setFechaSolucion(datosIncidenteModificar.getFechaSolucion());
-
-		if (!(incidenteData.getIdTecnicoEscalono() == datosIncidenteModificar.getIdTecnicoEscalono()))
+		
+		if(Objects.nonNull(datosIncidenteModificar.getIdTecnicoEscalono())) {
 			incidenteData.setIdTecnicoEscalono(datosIncidenteModificar.getIdTecnicoEscalono());
-
+		}
+			
 		return incidenteData;
 	}
 

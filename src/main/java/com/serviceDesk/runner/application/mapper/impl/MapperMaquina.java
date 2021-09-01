@@ -2,10 +2,14 @@ package com.serviceDesk.runner.application.mapper.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.serviceDesk.runner.application.entities.BloqueDependencia;
 import com.serviceDesk.runner.application.entities.Maquina;
+import com.serviceDesk.runner.application.entities.NumeroDependencia;
 import com.serviceDesk.runner.application.entities.TipoDependencia;
 import com.serviceDesk.runner.application.mapper.IMapperMaquina;
+import com.serviceDesk.runner.application.model.BloqueDependenciaModel;
 import com.serviceDesk.runner.application.model.MaquinaModel;
+import com.serviceDesk.runner.application.model.NumeroDependenciaModel;
 import com.serviceDesk.runner.application.model.TipoDependenciaModel;
 
 @Service
@@ -18,14 +22,22 @@ public class MapperMaquina implements IMapperMaquina{
 		
 		TipoDependencia tipoDependencia = maquinaEntity.getTipoDependencia();
 		TipoDependenciaModel tipoDependenciaModel = new TipoDependenciaModel();
+		BloqueDependencia bloqueDependencia = maquinaEntity.getBloqueDependencia();
+		BloqueDependenciaModel bloqueDependenciaModel = new BloqueDependenciaModel();
+		NumeroDependencia numeroDependencia = maquinaEntity.getNumeroDependencia();
+		NumeroDependenciaModel numeroDependenciaModel = new NumeroDependenciaModel();
 		
 		tipoDependenciaModel.setIdTipoDependencia(tipoDependencia.getIdTipoDependencia());
 		tipoDependenciaModel.setNombreDependencia(tipoDependencia.getNombreDependencia());
+		bloqueDependenciaModel.setIdBloqueDependencia(bloqueDependencia.getIdBloqueDependencia());
+		bloqueDependenciaModel.setNombreBloqueDependencia(bloqueDependencia.getNombreBloqueDependenciaa());
+		numeroDependenciaModel.setIdNumeroDependencia(numeroDependencia.getIdNumeroDependencia());
+		numeroDependenciaModel.setNumeroDependencia(numeroDependencia.getNumeroDependencia());
 		
 		mostrarMaquina.setTipoDependencia(tipoDependenciaModel);
 		mostrarMaquina.setNumeroComputador(maquinaEntity.getNumeroComputador());
-		mostrarMaquina.setNumeroDependencia(maquinaEntity.getNumeroDependencia());
-		mostrarMaquina.setBloqueDependencia(maquinaEntity.getBloqueDependencia());
+		mostrarMaquina.setNumeroDependencia(numeroDependenciaModel);
+		mostrarMaquina.setBloqueDependencia(bloqueDependenciaModel);
 		mostrarMaquina.setSerialPantalla(maquinaEntity.getSerialPantalla());
 		mostrarMaquina.setSerialCpu(maquinaEntity.getSerialCpu());
 		mostrarMaquina.setSerialTeclado(maquinaEntity.getSerialTeclado());

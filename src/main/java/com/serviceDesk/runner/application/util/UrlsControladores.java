@@ -9,4 +9,6 @@ public class UrlsControladores {
 	public static final String USUARIO_CONTROLLER ="/usuario";
 	public static final String TIPO_INCIDENTE_CONTROLLER ="/tipoIncidente";
 	public static final String TIPO_DEPENDENCIA_CONTROLLER ="/tipoDependencia";
+	public static final String NUMERO_DEPENDENCIA_CONTROLLER ="/numeroDependencia";
+	public static final String BLOQUE_DEPENDENCIA_CONTROLLER ="/bloqueDependencia";
 }

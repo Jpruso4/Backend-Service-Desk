@@ -8,11 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.serviceDesk.runner.application.business.IMaquinaBusiness;
 import com.serviceDesk.runner.application.dao.IMaquinaDao;
 import com.serviceDesk.runner.application.dao.ITipoDependenciaDao;
+import com.serviceDesk.runner.application.entities.BloqueDependencia;
 import com.serviceDesk.runner.application.entities.Maquina;
+import com.serviceDesk.runner.application.entities.NumeroDependencia;
 import com.serviceDesk.runner.application.entities.TipoDependencia;
 import com.serviceDesk.runner.application.model.MaquinaModel;
 import com.serviceDesk.runner.application.model.Response;
+import com.serviceDesk.runner.application.repository.IBloqueDependenciaRepository;
 import com.serviceDesk.runner.application.repository.IMaquinaRespository;
+import com.serviceDesk.runner.application.repository.INumeroDependenciaRepository;
 import com.serviceDesk.runner.application.repository.ITipoDependenciaRepository;
 import com.serviceDesk.runner.application.service.IMaquinaService;
 import com.serviceDesk.runner.application.util.CodigosError;
@@ -23,13 +27,19 @@ public class MaquinaBusiness implements IMaquinaBusiness {
 	private final IMaquinaService iMaquinaService;
 	private final ITipoDependenciaRepository iTipoDependenciaRepository;
 	private final IMaquinaRespository iMaquinaRepository;
+	private final IBloqueDependenciaRepository iBloqueDependenciaRepository;
+	private final INumeroDependenciaRepository iNumeroDependenciaRepository;
 
 	@Autowired
 	public MaquinaBusiness(IMaquinaService iMaquinaService, ITipoDependenciaRepository iTipoDependenciaRepository,
-			ITipoDependenciaDao iTipoDependenciaDao, IMaquinaRespository iMaquinaRepository, IMaquinaDao iMaquinaDao) {
+			ITipoDependenciaDao iTipoDependenciaDao, IMaquinaRespository iMaquinaRepository, IMaquinaDao iMaquinaDao,
+			IBloqueDependenciaRepository iBloqueDependenciaRepository,
+			INumeroDependenciaRepository iNumeroDependenciaRepository) {
 		this.iMaquinaService = iMaquinaService;
 		this.iTipoDependenciaRepository = iTipoDependenciaRepository;
 		this.iMaquinaRepository = iMaquinaRepository;
+		this.iBloqueDependenciaRepository = iBloqueDependenciaRepository;
+		this.iNumeroDependenciaRepository = iNumeroDependenciaRepository;
 	}
 
 	@Override
@@ -48,14 +58,29 @@ public class MaquinaBusiness implements IMaquinaBusiness {
 
 		if (!iTipoDependenciaRepository
 				.existeTipoDeDependencia(datosMaquinaNueva.getTipoDependencia().getIdTipoDependencia()))
-			return new Response<Boolean>(CodigosError.COD_TIPO_DE_DEPENDENCIA_INEXISTENTE, MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
+			return new Response<Boolean>(CodigosError.COD_TIPO_DE_DEPENDENCIA_INEXISTENTE,
+					MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
 
 		registroMaquina.setTipoDependencia(iTipoDependenciaRepository
 				.obtenerElTipoDeDependencia(datosMaquinaNueva.getTipoDependencia().getIdTipoDependencia()).get());
 
+		if (!iBloqueDependenciaRepository
+				.existeBloqueDeDependencia(datosMaquinaNueva.getBloqueDependencia().getIdBloqueDependencia()))
+			return new Response<Boolean>(CodigosError.COD_BLOQUE_DE_DEPENDENCIA_INEXISTENTE,
+					MensajesError.BLOQUE_DE_DEPENDENCIA_INEXISTENTE, null);
+
+		registroMaquina.setBloqueDependencia(iBloqueDependenciaRepository
+				.obtenerElBloqueDeDependencia(datosMaquinaNueva.getBloqueDependencia().getIdBloqueDependencia()).get());
+
+		if (!iNumeroDependenciaRepository
+				.existeNumeroDeDependencia(datosMaquinaNueva.getNumeroDependencia().getIdNumeroDependencia()))
+			return new Response<Boolean>(CodigosError.COD_NUMERO_DE_DEPENDENCIA_INEXISTENTE,
+					MensajesError.NUMERO_DE_DEPENDENCIA_INEXISTENTE, null);
+
+		registroMaquina.setNumeroDependencia(iNumeroDependenciaRepository
+				.obtenerElNumeroDeDependencia(datosMaquinaNueva.getNumeroDependencia().getIdNumeroDependencia()).get());
+
 		registroMaquina.setNumeroComputador(datosMaquinaNueva.getNumeroComputador());
-		registroMaquina.setNumeroDependencia(datosMaquinaNueva.getNumeroDependencia());
-		registroMaquina.setBloqueDependencia(datosMaquinaNueva.getBloqueDependencia());
 		registroMaquina.setSerialPantalla(datosMaquinaNueva.getSerialPantalla());
 		registroMaquina.setSerialCpu(datosMaquinaNueva.getSerialCpu());
 		registroMaquina.setSerialTeclado(datosMaquinaNueva.getSerialTeclado());
@@ -74,12 +99,27 @@ public class MaquinaBusiness implements IMaquinaBusiness {
 
 		if (!iTipoDependenciaRepository
 				.existeTipoDeDependencia(datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia()))
-			return new Response<Boolean>(CodigosError.COD_TIPO_DE_DEPENDENCIA_INEXISTENTE, MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
+			return new Response<Boolean>(CodigosError.COD_TIPO_DE_DEPENDENCIA_INEXISTENTE,
+					MensajesError.TIPO_DE_DEPENDENCIA_INEXISTENTE, null);
+
+		if (!iBloqueDependenciaRepository
+				.existeBloqueDeDependencia(datosMaquinaModificar.getBloqueDependencia().getIdBloqueDependencia()))
+			return new Response<Boolean>(CodigosError.COD_BLOQUE_DE_DEPENDENCIA_INEXISTENTE,
+					MensajesError.BLOQUE_DE_DEPENDENCIA_INEXISTENTE, null);
+
+		if (!iNumeroDependenciaRepository
+				.existeNumeroDeDependencia(datosMaquinaModificar.getNumeroDependencia().getIdNumeroDependencia()))
+			return new Response<Boolean>(CodigosError.COD_NUMERO_DE_DEPENDENCIA_INEXISTENTE,
+					MensajesError.NUMERO_DE_DEPENDENCIA_INEXISTENTE, null);
 
 		Maquina maquinaModificar = validarCambiosActualizarMaquina(
 				iMaquinaRepository.obtenerDatosMaquina(datosMaquinaModificar.getIdMaquina()), datosMaquinaModificar,
 				iTipoDependenciaRepository
-						.obtenerElTipoDeDependencia(datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia()));
+						.obtenerElTipoDeDependencia(datosMaquinaModificar.getTipoDependencia().getIdTipoDependencia()),
+				iBloqueDependenciaRepository.obtenerElBloqueDeDependencia(
+						datosMaquinaModificar.getNumeroDependencia().getIdNumeroDependencia()),
+				iNumeroDependenciaRepository.obtenerElNumeroDeDependencia(
+						datosMaquinaModificar.getNumeroDependencia().getIdNumeroDependencia()));
 		return iMaquinaService.actualizarMaquina(maquinaModificar);
 	}
 
@@ -89,21 +129,21 @@ public class MaquinaBusiness implements IMaquinaBusiness {
 	}
 
 	private Maquina validarCambiosActualizarMaquina(Optional<Maquina> datosMaquinaBD,
-			MaquinaModel datosMaquinaModificar, Optional<TipoDependencia> datosTipoDependenciaBD) {
+			MaquinaModel datosMaquinaModificar, Optional<TipoDependencia> datosTipoDependenciaBD,
+			Optional<BloqueDependencia> datosBloqueDependenciaBD,
+			Optional<NumeroDependencia> datosNumeroDependenciaBD) {
 
 		Maquina maquinaData = datosMaquinaBD.get();
 		TipoDependencia tipoDependenciaData = datosTipoDependenciaBD.get();
+		NumeroDependencia numeroDependencia = datosNumeroDependenciaBD.get();
+		BloqueDependencia bloqueDependencia = datosBloqueDependenciaBD.get();
 
 		maquinaData.setTipoDependencia(tipoDependenciaData);
+		maquinaData.setBloqueDependencia(bloqueDependencia);
+		maquinaData.setNumeroDependencia(numeroDependencia);
 
 		if (!(maquinaData.getNumeroComputador() == datosMaquinaModificar.getNumeroComputador()))
 			maquinaData.setNumeroComputador(datosMaquinaModificar.getNumeroComputador());
-
-		if (!(maquinaData.getNumeroDependencia() == datosMaquinaModificar.getNumeroDependencia()))
-			maquinaData.setNumeroDependencia(datosMaquinaModificar.getNumeroDependencia());
-
-		if (!(maquinaData.getBloqueDependencia().equals(datosMaquinaModificar.getBloqueDependencia())))
-			maquinaData.setBloqueDependencia(datosMaquinaModificar.getBloqueDependencia());
 
 		if (!(maquinaData.getSerialPantalla() == (datosMaquinaModificar.getSerialPantalla())))
 			maquinaData.setSerialPantalla(datosMaquinaModificar.getSerialPantalla());

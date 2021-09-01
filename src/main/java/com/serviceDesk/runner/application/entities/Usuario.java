@@ -25,7 +25,7 @@ public class Usuario implements Serializable {
 
 	@Column(name="numero_documento")
 	private String numeroDocumento;
-
+	
 	@Column(name="primer_apellido")
 	private String primerApellido;
 
@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 
 	@Column(name="segundo_nombre")
 	private String segundoNombre;
-
+	
 	private String telefono;
 
 	//bi-directional many-to-one association to Incidente

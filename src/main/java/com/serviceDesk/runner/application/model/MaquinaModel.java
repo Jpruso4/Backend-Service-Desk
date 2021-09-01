@@ -14,8 +14,8 @@ public class MaquinaModel {
 	private TipoDependenciaModel tipoDependencia;
 	private String nombreEquipo;
 	private int numeroComputador;
-	private int numeroDependencia;
-	private String bloqueDependencia;
+	private NumeroDependenciaModel numeroDependencia;
+	private BloqueDependenciaModel bloqueDependencia;
 	private String procesador;
 	private String ram;
 	private String serialCpu;

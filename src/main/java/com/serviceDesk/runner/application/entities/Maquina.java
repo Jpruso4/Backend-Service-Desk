@@ -19,17 +19,11 @@ public class Maquina implements Serializable {
 	@Column(name="id_maquina")
 	private int idMaquina;
 
-	@Column(name="bloque_dependencia")
-	private String bloqueDependencia;
-
 	@Column(name="nombre_equipo")
 	private String nombreEquipo;
 
 	@Column(name="numero_computador")
 	private int numeroComputador;
-
-	@Column(name="numero_dependencia")
-	private int numeroDependencia;
 
 	private String procesador;
 
@@ -54,6 +48,16 @@ public class Maquina implements Serializable {
 	@OneToMany(mappedBy="maquina")
 	private List<Incidente> incidentes;
 
+	//bi-directional many-to-one association to BloqueDependencia
+	@ManyToOne
+	@JoinColumn(name="id_bloque_dependencia")
+	private BloqueDependencia bloqueDependencia;
+
+	//bi-directional many-to-one association to NumeroDependencia
+	@ManyToOne
+	@JoinColumn(name="id_numero_dependencia")
+	private NumeroDependencia numeroDependencia;
+
 	//bi-directional many-to-one association to TipoDependencia
 	@ManyToOne
 	@JoinColumn(name="id_tipo_dependencia")
@@ -70,14 +74,6 @@ public class Maquina implements Serializable {
 		this.idMaquina = idMaquina;
 	}
 
-	public String getBloqueDependencia() {
-		return this.bloqueDependencia;
-	}
-
-	public void setBloqueDependencia(String bloqueDependencia) {
-		this.bloqueDependencia = bloqueDependencia;
-	}
-
 	public String getNombreEquipo() {
 		return this.nombreEquipo;
 	}
@@ -92,14 +88,6 @@ public class Maquina implements Serializable {
 
 	public void setNumeroComputador(int numeroComputador) {
 		this.numeroComputador = numeroComputador;
-	}
-
-	public int getNumeroDependencia() {
-		return this.numeroDependencia;
-	}
-
-	public void setNumeroDependencia(int numeroDependencia) {
-		this.numeroDependencia = numeroDependencia;
 	}
 
 	public String getProcesador() {
@@ -179,6 +167,23 @@ public class Maquina implements Serializable {
 
 		return incidente;
 	}
+
+	public BloqueDependencia getBloqueDependencia() {
+		return this.bloqueDependencia;
+	}
+
+	public void setBloqueDependencia (BloqueDependencia bloqueDependencia) {
+		this.bloqueDependencia = bloqueDependencia;
+	}
+	
+	public NumeroDependencia getNumeroDependencia() {
+		return this.numeroDependencia;
+	}
+
+	public void setNumeroDependencia (NumeroDependencia numeroDependencia) {
+		this.numeroDependencia = numeroDependencia;
+	}
+
 
 	public TipoDependencia getTipoDependencia() {
 		return this.tipoDependencia;

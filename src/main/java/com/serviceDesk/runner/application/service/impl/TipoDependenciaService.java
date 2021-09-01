@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.serviceDesk.runner.application.dao.ITipoDependenciaDao;
 import com.serviceDesk.runner.application.entities.TipoDependencia;
@@ -12,6 +13,7 @@ import com.serviceDesk.runner.application.model.Response;
 import com.serviceDesk.runner.application.model.TipoDependenciaModel;
 import com.serviceDesk.runner.application.service.ITipoDependeciaService;
 
+@Service
 public class TipoDependenciaService implements ITipoDependeciaService{
 
 	private final ITipoDependenciaDao iTipoDependenciaDao;

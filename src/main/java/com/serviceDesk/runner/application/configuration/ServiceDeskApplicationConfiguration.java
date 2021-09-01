@@ -3,13 +3,19 @@ package com.serviceDesk.runner.application.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.serviceDesk.runner.application.business.impl.BloqueDependenciaBusiness;
 import com.serviceDesk.runner.application.business.impl.IncidenteBusiness;
 import com.serviceDesk.runner.application.business.impl.LoginBusiness;
 import com.serviceDesk.runner.application.business.impl.MaquinaBusiness;
+import com.serviceDesk.runner.application.business.impl.NumeroDependenciaBusiness;
 import com.serviceDesk.runner.application.business.impl.TecnicoBusiness;
+import com.serviceDesk.runner.application.business.impl.TipoDependenciaBusiness;
 import com.serviceDesk.runner.application.business.impl.TipoIncidenteBusiness;
 import com.serviceDesk.runner.application.business.impl.UsuarioBusiness;
+import com.serviceDesk.runner.application.dao.IBloqueDependenciaDao;
+import com.serviceDesk.runner.application.dao.IIncidenteDao;
 import com.serviceDesk.runner.application.dao.IMaquinaDao;
+import com.serviceDesk.runner.application.dao.INumeroDependenciaDao;
 import com.serviceDesk.runner.application.dao.ITecnicoDao;
 import com.serviceDesk.runner.application.dao.ITipoDependenciaDao;
 import com.serviceDesk.runner.application.dao.ITipoDocumentoDao;
@@ -17,8 +23,10 @@ import com.serviceDesk.runner.application.dao.ITipoIncidenteDao;
 import com.serviceDesk.runner.application.dao.ITipoTecnicoDao;
 import com.serviceDesk.runner.application.dao.ITipoUsuarioDao;
 import com.serviceDesk.runner.application.dao.IUsuarioDao;
+import com.serviceDesk.runner.application.repository.IBloqueDependenciaRepository;
 import com.serviceDesk.runner.application.repository.IIncidenteRepository;
 import com.serviceDesk.runner.application.repository.IMaquinaRespository;
+import com.serviceDesk.runner.application.repository.INumeroDependenciaRepository;
 import com.serviceDesk.runner.application.repository.ITecnicoRepository;
 import com.serviceDesk.runner.application.repository.ITipoDependenciaRepository;
 import com.serviceDesk.runner.application.repository.ITipoDocumentoRepository;
@@ -26,8 +34,11 @@ import com.serviceDesk.runner.application.repository.ITipoIncidenteRepository;
 import com.serviceDesk.runner.application.repository.ITipoTecnicoRepository;
 import com.serviceDesk.runner.application.repository.ITipoUsuarioRepository;
 import com.serviceDesk.runner.application.repository.IUsuarioRespository;
+import com.serviceDesk.runner.application.repository.impl.BloqueDependenciaRepository;
+import com.serviceDesk.runner.application.repository.impl.IncidenteRepository;
 import com.serviceDesk.runner.application.repository.impl.LoginRepository;
 import com.serviceDesk.runner.application.repository.impl.MaquinaRepository;
+import com.serviceDesk.runner.application.repository.impl.NumeroDependenciaRepository;
 import com.serviceDesk.runner.application.repository.impl.TecnicoRepository;
 import com.serviceDesk.runner.application.repository.impl.TipoDependenciaRepository;
 import com.serviceDesk.runner.application.repository.impl.TipoDocumentoRepository;
@@ -35,10 +46,13 @@ import com.serviceDesk.runner.application.repository.impl.TipoIncidenteResposito
 import com.serviceDesk.runner.application.repository.impl.TipoTecnicoRepository;
 import com.serviceDesk.runner.application.repository.impl.TipoUsuarioRepository;
 import com.serviceDesk.runner.application.repository.impl.UsuarioRepository;
+import com.serviceDesk.runner.application.service.IBloqueDependenciaService;
 import com.serviceDesk.runner.application.service.IIncidenteService;
 import com.serviceDesk.runner.application.service.ILoginService;
 import com.serviceDesk.runner.application.service.IMaquinaService;
+import com.serviceDesk.runner.application.service.INumeroDependenciaService;
 import com.serviceDesk.runner.application.service.ITecnicoService;
+import com.serviceDesk.runner.application.service.ITipoDependeciaService;
 import com.serviceDesk.runner.application.service.ITipoIncidenteService;
 import com.serviceDesk.runner.application.service.IUsuarioService;
 
@@ -55,8 +69,10 @@ public class ServiceDeskApplicationConfiguration {
 	}
 
 	@Bean
-	public MaquinaRepository getMaquinaRepository(IMaquinaDao iMaquinaDao) {
-		return new MaquinaRepository(iMaquinaDao);
+	public MaquinaRepository getMaquinaRepository(IMaquinaDao iMaquinaDao,
+			IBloqueDependenciaRepository iBloqueDependenciaRepository,
+			INumeroDependenciaRepository iNumeroDependenciaRepository) {
+		return new MaquinaRepository(iMaquinaDao, iBloqueDependenciaRepository, iNumeroDependenciaRepository);
 	}
 
 	@Bean
@@ -76,9 +92,11 @@ public class ServiceDeskApplicationConfiguration {
 	@Bean
 	public MaquinaBusiness getMaquinaBusiness(IMaquinaService iMaquinaService,
 			ITipoDependenciaRepository iTipoDependenciaRepository, ITipoDependenciaDao iTipoDependenciaDao,
-			IMaquinaRespository iMaquinaRepository, IMaquinaDao iMaquinaDao) {
+			IMaquinaRespository iMaquinaRepository, IMaquinaDao iMaquinaDao,
+			IBloqueDependenciaRepository iBloqueDependenciaRepository,
+			INumeroDependenciaRepository iNumeroDependenciaRepository) {
 		return new MaquinaBusiness(iMaquinaService, iTipoDependenciaRepository, iTipoDependenciaDao, iMaquinaRepository,
-				iMaquinaDao);
+				iMaquinaDao, iBloqueDependenciaRepository, iNumeroDependenciaRepository);
 	}
 
 	@Bean
@@ -131,4 +149,33 @@ public class ServiceDeskApplicationConfiguration {
 		return new TipoUsuarioRepository(iTipoUsuarioDao);
 	}
 
+	@Bean
+	public IncidenteRepository getIncidenteRepository(IIncidenteDao iIncidenteDao) {
+		return new IncidenteRepository(iIncidenteDao);
+	}
+
+	@Bean
+	public TipoDependenciaBusiness getTipoDependenciaBusiness(ITipoDependeciaService iTipoDependeciaService) {
+		return new TipoDependenciaBusiness(iTipoDependeciaService);
+	}
+
+	@Bean
+	public BloqueDependenciaBusiness getBloqueDependenciaBusiness(IBloqueDependenciaService iBloqueDependenciaService) {
+		return new BloqueDependenciaBusiness(iBloqueDependenciaService);
+	}
+
+	@Bean
+	public NumeroDependenciaBusiness getNumeroDependenciaBusiness(INumeroDependenciaService iNumeroDependenciaService) {
+		return new NumeroDependenciaBusiness(iNumeroDependenciaService);
+	}
+
+	@Bean
+	public BloqueDependenciaRepository getBloqueDependenciaRepository(IBloqueDependenciaDao iBloqueDependenciaDao) {
+		return new BloqueDependenciaRepository(iBloqueDependenciaDao);
+	}
+
+	@Bean
+	public NumeroDependenciaRepository getNumeroDependenciaRepository(INumeroDependenciaDao iNumeroDependenciaDao) {
+		return new NumeroDependenciaRepository(iNumeroDependenciaDao);
+	}
 }

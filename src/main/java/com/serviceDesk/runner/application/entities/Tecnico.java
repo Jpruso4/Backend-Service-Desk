@@ -66,7 +66,7 @@ public class Tecnico implements Serializable {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
-
+	
 	public String getCelular() {
 		return this.celular;
 	}

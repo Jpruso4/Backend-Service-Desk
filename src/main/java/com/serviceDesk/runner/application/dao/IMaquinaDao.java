@@ -10,6 +10,6 @@ import com.serviceDesk.runner.application.entities.Maquina;
 
 public interface IMaquinaDao extends JpaRepository<Maquina, Integer>{
 
-	@Query(value = "SELECT maquina FROM Maquina maquina WHERE maquina.numeroComputador = :numeroComputador AND maquina.numeroDependencia = :numeroDependencia AND maquina.bloqueDependencia =:bloqueDependencia", nativeQuery = false)
-	public Optional<Maquina> obtenerMaquinaPorSalon(@Param("numeroComputador") int numeroComputador, @Param("numeroDependencia") int numeroDependencia, @Param("bloqueDependencia") String bloqueDependencia);
+	@Query(value = "SELECT maquina FROM Maquina maquina WHERE maquina.numeroComputador = :numeroComputador AND maquina.numeroDependencia.idNumeroDependencia = :numeroDependencia AND maquina.bloqueDependencia.idBloqueDependencia =:bloqueDependencia", nativeQuery = false)
+	public Optional<Maquina> obtenerMaquinaPorSalon(@Param("numeroComputador") int numeroComputador, @Param("numeroDependencia") int numeroDependencia, @Param("bloqueDependencia") int bloqueDependencia);
 }
